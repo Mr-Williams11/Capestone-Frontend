@@ -123,15 +123,36 @@ export default createStore({
       console.log(loginUser);
       try {
         const { data } = await axios.post(`https://capstone-backend-owr8.onrender.com/login`, loginUser);
+
         const token = data.token;
         $cookies.set('jwt', token);
-        alert(data.msg);1
+        alert(data.msg);
+
+        const [{userRole}] = data.user;  //accessing array within an object
+        await $cookies.set( 'userRole', userRole );   //saving role in cookie for easy access
+
+        const [user] = data.user;
+        await $cookies.set('user', user); //save user info in cookies
+      
         setTimeout(async () => {
+          await router.push('/');
           commit('setLogged', true);
+          window.location.reload
         }, 3000);
       } catch (error) {
         alert('Error during login: ' + error.message);
     }
+  },
+  async logout({ commit }) {
+    try {
+      $cookies.remove('jwt');
+      commit('setLogged', false);
+      alert('You have been logged out successfully.');
+      router.push('/Signin');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   }
+  
 }
 });

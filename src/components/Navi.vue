@@ -47,7 +47,7 @@
     </ul>
     <ul class="logout">
       <li>
-        <a href="#">
+        <a href="#" @click="logout">
           <i class="fa fa-power-off fa-2x"></i>
           <span class="nav-text">Logout</span>
         </a>
@@ -58,7 +58,11 @@
 
 <script>
 export default {
-
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+    }
+  }
 };
 </script>
 
