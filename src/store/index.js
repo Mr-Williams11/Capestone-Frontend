@@ -153,6 +153,6 @@ export default createStore({
       console.error('Error during logout:', error);
     }
   }
-  
+
 }
 });
