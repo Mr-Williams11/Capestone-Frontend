@@ -55,8 +55,7 @@ footer {
 /* Media query for screens with a maximum width of 720px */
 @media screen and (max-width: 720px) {
   body {
-    width: 95%;
-    height: 81.5vh; /* Adjust body width for smaller screens */
+    width: 95%; /* Adjust body width for smaller screens */
   }
   .footer-logo {
     left: 10px; /* Adjust the left position of the logo */

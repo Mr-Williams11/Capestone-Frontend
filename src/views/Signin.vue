@@ -23,7 +23,7 @@
           type="password"
         />
       </div>
-      <button type="submit" @click="submitLoginForm()">Login</button>
+      <button type="submit" @submit.prevent="submitLoginForm" @click="submitLoginForm()">Login</button>
       <div class="bottom-text">
         <p>Don't have an account? <a href="#" @click="toggleSignUp">Sign Up</a></p>
       </div>

@@ -66,22 +66,6 @@ export default createStore({
     },
     async editUser({ dispatch }, userId, userData) {
       try {
-        const userName = prompt("Enter User Full Name:");
-        const userAge = prompt("Enter User Age:");
-        const userEmail = prompt("Enter User Email:");
-        const userRole = prompt("Enter User Role:");
-        const userPassword = prompt("Enter User Password:");
-        const userUsername = prompt("Enter Username:");
-    
-        const updatedUserData = {
-          name: userName,
-          age: userAge,
-          email: userEmail,
-          role: userRole,
-          password: userPassword,
-          username: userUsername
-        };
-    
         await axios.patch(`https://capstone-backend-owr8.onrender.com/users/${userId}`, updatedUserData);
       } catch (error) {
         console.error('Error editing user:', error);
@@ -121,7 +105,6 @@ export default createStore({
     },
     async logIn({ commit }, loginUser) {
       console.log(loginUser);
-      try {
         const { data } = await axios.post(`https://capstone-backend-owr8.onrender.com/login`, loginUser);
 
         const token = data.token;
@@ -129,30 +112,29 @@ export default createStore({
         alert(data.msg);
 
         const [{userRole}] = data.user;  //accessing array within an object
-        await $cookies.set( 'userRole', userRole );   //saving role in cookie for easy access
-
+        await $cookies.set('userRole', userRole );   //saving role in cookie for easy access
+ 
         const [user] = data.user;
         await $cookies.set('user', user); //save user info in cookies
       
         setTimeout(async () => {
           await router.push('/');
-          commit('setLogged', true);
           window.location.reload
+          commit('setLogged', true);
         }, 3000);
-      } catch (error) {
-        alert('Error during login: ' + error.message);
-    }
+      },
+      async logout({ commit }) {
+        try {
+          $cookies.remove('jwt');
+          $cookies.remove('user');
+          $cookies.remove('userRole');
+          commit('setLogged', false);
+          alert('You have been logged out successfully.');
+          router.push('/Signin');
+          window.location.reload
+        } catch (error) {
+          console.error('Error during logout:', error);
+        }
+      }
   },
-  async logout({ commit }) {
-    try {
-      $cookies.remove('jwt');
-      commit('setLogged', false);
-      alert('You have been logged out successfully.');
-      router.push('/Signin');
-    } catch (error) {
-      console.error('Error during logout:', error);
-    }
-  }
-
-}
 });

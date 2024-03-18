@@ -21,7 +21,7 @@
         </router-link>
       </li>
       <li class="has-subnav">
-        <router-link to="/Admin">
+        <router-link to="/Admin" v-if="$cookies.get('userRole') === 'Admin'">
           <i class="fa fa-user fa-2x"></i>
           <span class="nav-text">Admin</span>
         </router-link>

@@ -35,6 +35,41 @@
       </form>
     </div>
 
+      <!-- Modal for Editing User -->
+  <div v-if="showEditUserModal" class="modal">
+    <div class="modal-content">
+      <span class="close" @click="closeEditUserModal">&times;</span>
+      <h2>Edit User</h2>
+      <form @submit.prevent="saveEditedUser" class="user-form">
+        <div class="form-group">
+          <label for="editFullName">Full Name:</label>
+          <input type="text" id="editFullName" v-model="editedUser.userName" placeholder="Enter full name">
+        </div>
+        <div class="form-group">
+          <label for="editAge">Age:</label>
+          <input type="number" id="editAge" v-model="editedUser.userAge" placeholder="Enter age">
+        </div>
+        <div class="form-group">
+          <label for="editEmail">Email:</label>
+          <input type="email" id="editEmail" v-model="editedUser.userEmail" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="editRole">Role:</label>
+          <input type="text" id="editRole" v-model="editedUser.userRole" placeholder="Enter role">
+        </div>
+        <div class="form-group">
+          <label for="editUsername">Username:</label>
+          <input type="text" id="editUsername" v-model="editedUser.userUsername" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label for="editPassword">Password:</label>
+          <input type="password" id="editPassword" v-model="editedUser.userPassword" placeholder="Enter password">
+        </div>
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
   
       <h2>Users</h2>
       <table>
@@ -135,6 +170,7 @@ export default {
     return {
       showAddUserForm: false,
       showAddProductForm: false,
+      showEditUserModal: false,
       newUser: {
       fullName: '',
       age: '',
@@ -149,7 +185,15 @@ export default {
         category: '',
         price: '',
         image: ''
-      }
+      },
+      editedUser: {
+        fullName: '',
+        age: '',
+        email: '',
+        role: '',
+        username: '',
+        password: ''
+      },
     };
   },
   mounted() {
@@ -206,10 +250,29 @@ export default {
       }
     },
     editUser(user) {
+      this.editedUser = { ...user };
+      this.showEditUserModal = true;
+    },
+    closeEditUserModal() {
+      this.editedUser = {
+        fullName: '',
+        age: '',
+        email: '',
+        role: '',
+        username: '',
+        password: ''
+      };
+      this.showEditUserModal = false;
+    },
+    async saveEditedUser(userId) {
       try {
-
+        const { fullName, age, email, role,  password, username } = this.editedUser;
+        await axios.patch(`https://capstone-backend-owr8.onrender.com/users/${this.editedUser.userId}`, { userName: fullName, userAge: age, userEmail: email, userRole: role, userPassword: password, userUsername: username });
+        alert('You hve edited successfully')
+        this.closeEditUserModal();
+        this.fetchUsers(userId);
       } catch (error) {
-        console.error('Error editing user:', error);
+        console.error('Error saving edited user:', error);
       }
     },
     del(userId){
@@ -316,6 +379,7 @@ button:hover {
     color: #ffffff;
     border: none;
     border-radius: 3px;
+    margin: 5px;
   }
 
   button:hover {
@@ -343,5 +407,29 @@ button:hover {
     border-radius: 3px;
     box-sizing: border-box;
   }
-</style>
+  @media screen and (max-width: 300px) {
+  table {
+    width: 100%;
+    font-size: 12px;
+  }
 
+  .user-form,
+  .product-form {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  table {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .user-form,
+  .product-form {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+</style>

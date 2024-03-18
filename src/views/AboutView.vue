@@ -1,12 +1,13 @@
 <template>
-    <div class="img">
+  <div class="img">
     <img src="https://iili.io/JVRiZ3G.png" alt="">
   </div>
-    <div class="about"> 
+  <div class="about"> 
     <h2>About Us</h2>
-      <p>"At FoamFusion, we're dedicated to revolutionizing the way your vehicle gets pampered. Our passion for pristine rides drives us to blend cutting-edge technology with eco-friendly practices, ensuring each wash leaves your car sparkling clean and the environment smiling. With a fusion of foam, finesse, and a commitment to excellence, we strive to exceed your expectations every time you visit. Experience the ultimate in car care with FoamFusion - where innovation meets immaculate shine."</p>
-    </div>
+    <p>"At FoamFusion, we're dedicated to revolutionizing the way your vehicle gets pampered. Our passion for pristine rides drives us to blend cutting-edge technology with eco-friendly practices, ensuring each wash leaves your car sparkling clean and the environment smiling. With a fusion of foam, finesse, and a commitment to excellence, we strive to exceed your expectations every time you visit. Experience the ultimate in car care with FoamFusion - where innovation meets immaculate shine."</p>
+  </div>
 </template>
+
 <style scoped>
 * {
   box-sizing: border-box;
@@ -35,12 +36,15 @@
   width: 75%;
   background-color: transparent;
   box-shadow: none;
+  left: 100px;
+  position: relative;
 }
 
 .about h2{
   position: relative;
   font-size: 5rem;
-  width: 60%;
+  width: 75%;
+  text-align: center;
   bottom: 50px;
   color: transparent;
   background-image: linear-gradient(black, black);
@@ -61,11 +65,10 @@
 .about p{
   position: relative;
   font-size: 25px;
-  width: 60%;
-  text-align: left;
-  left: 100px;
+  width: 75%;
+  text-align: center;
+  left: 10px;
   bottom: 50px;
-  padding: 30px;
   background-image: linear-gradient( black 35%, blue);
   -webkit-background-clip: text; 
   background-clip: text;
@@ -73,37 +76,48 @@
 }
 
 @media screen and (max-width: 720px) {
-  .about {
-    font-size: 3rem; 
-    display: flex; /* Decrease font size for smaller screens */
-    width: 80%; /* Adjust width for smaller screens */
-    left: 20px; /* Reset right position */
-    top: 5px; /* Reset bottom position */
+  .about { 
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    left: 150px;
+    top: 5px;
+    position: relative;
   }
+  .about h2{
+    position: relative;
+    font-size: 18px;
+    width: 80%;
+    text-align: center;
+    left: 0; 
+    bottom: 0;
+  }
+
   .about p {
-    font-size: 18px; /* Decrease font size for smaller screens */
+    position: relative;
+    font-size: 18px;
     width: 80%; /* Adjust width for smaller screens */
-    text-align: center; /* Center align text for smaller screens */
+    text-align: center;
     left: 0; /* Reset left position */
     bottom: 0; /* Reset bottom position */
   }
   .img img{
-  position: relative;
-  max-width: 300px;
-  max-height: 300px;
-  right: 200px ;
-}
+    position: relative;
+    max-width: 300px;
+    max-height: 300px;
+    right: 200px ;
+  }
 }
 
 /* Media query for screens with a maximum width of 320px */
 @media screen and (max-width: 320px) {
   .about h2 {
-    font-size: 2rem; /* Further decrease font size for even smaller screens */
-    width: 90%; /* Further adjust width for even smaller screens */
+    font-size: 2rem;
+    width: 90%;
   }
   .about p {
-    font-size: 16px; /* Further decrease font size for even smaller screens */
-    width: 90%; /* Further adjust width for even smaller screens */
+    font-size: 16px;
+    width: 90%;
   }
 }
 </style>
