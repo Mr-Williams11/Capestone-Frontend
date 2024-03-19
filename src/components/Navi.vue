@@ -3,7 +3,7 @@
   <nav class="main-menu">
     <ul>
       <li>
-        <router-link to="/">
+        <router-link to="/home">
           <i class="fa fa-home fa-2x"></i>
           <span class="nav-text">Home</span>
         </router-link>
@@ -33,7 +33,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/Signin">
+        <router-link to="/" v-if="!$cookies.get('jwt')">
           <i class="fa fa-sign-in fa-2x"></i>
           <span class="nav-text">Sign In</span>
         </router-link>

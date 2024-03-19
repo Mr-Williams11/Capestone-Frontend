@@ -128,7 +128,8 @@ export default {
       this.showLoginForm = !this.showLoginForm;
     },
     async submitSignUpForm() {
-        await this.$store.dispatch('addUser', this.newUser)
+        await this.$store.dispatch('addUser', this.newUser);
+        window.location.assign('/');
     },
   }
 }

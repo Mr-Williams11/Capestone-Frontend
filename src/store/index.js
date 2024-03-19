@@ -36,6 +36,7 @@ export default createStore({
         console.error('Error fetching products:', error);
       }
     },
+    
     async fetchUsers({ commit }) {
       try {
         const res = await axios.get('https://capstone-backend-owr8.onrender.com/users');
@@ -45,6 +46,7 @@ export default createStore({
         console.error('Error fetching users:', error);
       }
     },
+
     async addUser({ commit }, userData) {
       try {
         const res = await axios.post('https://capstone-backend-owr8.onrender.com/users', userData);
@@ -55,6 +57,7 @@ export default createStore({
         console.error('Error adding user:', error);
       }
     },
+
     async addProduct({ commit }, productData) {
       try {
         const res = await axios.post('https://capstone-backend-owr8.onrender.com/items', productData);
@@ -64,7 +67,8 @@ export default createStore({
         console.error('Error adding product:', error);
       }
     },
-    async editUser({ dispatch }, userId, userData) {
+
+    async editUser({ dispatch }, userId, updatedUserData) {
       try {
         await axios.patch(`https://capstone-backend-owr8.onrender.com/users/${userId}`, updatedUserData);
       } catch (error) {
@@ -72,8 +76,7 @@ export default createStore({
       }
       await dispatch('fetchUsers');
     },
-    
-    
+
     async editProduct({ commit, dispatch }, { productId, updatedProduct }) {
       try {
         await axios.patch(`https://capstone-backend-owr8.onrender.com/items/${productId}`, updatedProduct);
@@ -81,7 +84,9 @@ export default createStore({
       } catch (error) {
         console.error('Error editing product:', error);
       }
+      await dispatch('fetchProducts');
     },
+
     async deleteUser({ commit }, userId) {
       try {
         await axios.delete(`https://capstone-backend-owr8.onrender.com/users/${userId}`);
@@ -103,6 +108,7 @@ export default createStore({
         alert("Failed to delete product.");
       }
     },
+
     async logIn({ commit }, loginUser) {
       console.log(loginUser);
         const { data } = await axios.post(`https://capstone-backend-owr8.onrender.com/login`, loginUser);
@@ -118,11 +124,10 @@ export default createStore({
         await $cookies.set('user', user); //save user info in cookies
       
         setTimeout(async () => {
-          await router.push('/');
-          window.location.reload
+          window.location.assign('/home');
           commit('setLogged', true);
-        }, 3000);
-      },
+        }, 1000);
+    },
       async logout({ commit }) {
         try {
           $cookies.remove('jwt');
@@ -130,11 +135,11 @@ export default createStore({
           $cookies.remove('userRole');
           commit('setLogged', false);
           alert('You have been logged out successfully.');
-          router.push('/Signin');
-          window.location.reload
+          window.location.assign('/');
         } catch (error) {
           console.error('Error during logout:', error);
         }
-      }
+        window.location.reload
+    }
   },
 });

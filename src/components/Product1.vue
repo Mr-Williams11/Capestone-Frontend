@@ -1,188 +1,320 @@
 <template>
-  <div class="container">
-    <div class="card" v-for="product in $store.state.products" :key="product.prodID">
-      <div class="card-head">
-        <img :src="product.prodUrl" alt="Product Image" class="product-img">
-        <div id="product-img">
-          <img src="https://iili.io/JGjmmva.png" alt="logo" class="card-logo">
-        </div>
+
+  <div class="card">
+      <div class="left">
+        <img src="https://www.dropbox.com/s/e928cht0h5crcn4/shoe.png?raw=1" alt="shoe">
+        <i class="fa fa-long-arrow-left"></i>
+        <i class="fa fa-long-arrow-right"></i>
       </div>
-      <div class="card-body">
-        <div class="product-desc">
-          <span class="product-title">
-            {{ product.prodName }}
-            <br><span class="badge">
-              R {{ product.amount }}
-            </span>
-          </span>
-          <span class="product-caption">
-            {{ product.Category }}
-          </span>
-        </div>
-        <div class="product-properties">
-          <span class="product-price">
-            Buy<b>Now</b>
-          </span>
+      <div class="right">
+        <div class="product-info">
+          <div class="product-name">
+            <h1>Airmax</h1>
+            <i class="fa fa-search"></i>
+            <i class="fa fa-user"></i>
+            <i class="fa fa-shopping-cart"></i>
+          </div>
+          <div class="details">
+            <h3>Winter Collection</h3>
+            <h2>Men Black Sneakers</h2>
+            <h4><span class="fa fa-dollar"></span>150</h4>
+            <h4 class="dis"><span class="fa fa-dollar"></span>200</h4>
+          </div>
+          <ul>
+            <li>SIZE</li>
+            <li class="bg">7</li>
+            <li class="bg">8</li>
+            <li class="bg">9</li>
+            <li class="bg">10</li>
+            <li class="bg">11</li>
+          </ul>
+          <ul>
+            <li>COLOR</li>
+            <li class="yellow"></li>
+            <li class="black"></li>
+            <li class="blue"></li>
+          </ul>
+          <span class="foot"><i class="fa fa-shopping-bag"></i>Buy Now</span>
+          <span class="foot"><i class="fa fa-shopping-cart"></i>Add TO Cart</span>
         </div>
       </div>
     </div>
-  </div>
-</template>
-
-<script>
-export default {
-  computed: {},
-  methods: {
-    allProducts() {
-      this.$store.dispatch("fetchProducts");
+  
+  </template>
+  
+  <script>
+  import Spinner from '../components/Spinner.vue';
+  
+  export default {
+    components: {
+      Spinner
     },
-  },
-  mounted() {
-    this.allProducts();
-  },
-};
-</script>
-
-<style scoped>
-.container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  margin-left: 100px;
-  margin-top: 50px;
-  justify-content: center;
-}
-
-.card {
-  border-radius: 25px;
-  box-shadow: -11px 11px 1px grey;
-  border: 2px solid black;
-  width: 300px;
-  height: 400px;
-}
+    data() {
+      return {
+        searchQuery: '',
+      };
+    },
+    computed: {
+      filteredProducts() {
+        // Filter products based on search query
+        return this.$store.state.products.filter(product =>
+          product.title.toLowerCase().includes(this.searchQuery.toLowerCase()),
+        );
+      },
+    },
+  }
+  </script>
   
-  .card-head {
-    position: relative;
-    height: 252px;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fa782e', endColorstr='#c82930', GradientType=1);
-    border-radius: 25px 25px 0 0;
+  
+  
+  <style scoped>
+  body{
+    height: 200vh;
   }
   
-  .card-logo {
-      display: flex;
-      width: 150px;
-      filter: blur(1px);
+  
+  @import url('https://fonts.googleapis.com/css?family=Muli');
+  
+  /*reset*/
+  * {
+    margin: 0;
+    padding: 0;
   }
   
-  #product-img {
-    position: relative;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-  }
+  /*product info */
   
-  .product-img {
-    width: 400px;
-    height: 200px;
-  }
-  
-  .product-detail {
-    padding: 0 20px;
-    font-size: 11px;
-    color: #fff;
-  }
-  
-  .product-detail h2 {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-  }
-  
-  .back-text {
-    display: inline-block;
-    font-size: 125px;
-    font-weight: 900;
-    margin-left: -7px;
-    margin-top: -12px;
-    opacity: 0.1;
-  }
-  
-  .card-body {
-    height: 255px;
-    border-radius: 0 0 25px 25px;
-  }
-  
-  .product-title {
-    padding: 20px 20px 5px 20px;
-    display: block;
-    font-size: 15px;
-    width: 100%;
-    margin: 5px;
+  h1 {
+    color: #ff6d39;
+    font-family: "muli";
     font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .badge {
-    position: relative;
-    font-size: 15px;
-    font-weight: 300;
-    color: #fff;
-    background: #11e95b;
-    padding: 2px 5px;
-    border-radius: 4px;
-    top: -2px;
-    margin-left: 5px;
-  }
-  
-  .product-caption {
-    display: block;
-    padding: 0 20px;
-    font-size: 10px;
-    font-weight: 400;
-    text-transform: uppercase;
-  }
-  
-  .product-properties{
-      display: block;
-  }
-    .product-price {
-    position: relative;
-    background: #11e95b;
-    padding: 7px 20px;
-    text-align: center;
+    font-size: 22px;
+    margin-top: 21px;
     display: inline-block;
-    font-size: 24px;
-    font-weight: 200;
-    color: #fff;
-    border-radius: 7px;
-    left: 150px;
-    box-shadow: -10px 10px 15px darkgreen;
   }
   
-  .product-price b {
-    margin-left: 5px;
+  i.fa.fa-search {
+    margin-left: 90px;
   }
   
-  .yt
-  {
-    position: fixed;
-    padding:7px 10px 3px 10px;
-    top: 100px;
-    right: 50px;
-    background: rgba(0,0,0,0.1);
+  .product-name i {
+    color: #ffffff;
+    transition: 0.3s all ease;
+    margin: 0px 12px;
   }
   
-  .yt:hover
-  {
-    background: rgba(0,0,0,0.2);
+  .product-name i:hover {
+    color: #ff6d39;
+    cursor: pointer;
   }
+  
+  h3 {
+    color: #ffffff;
+    font-family: "muli";
+    margin-top: 84px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  h2 {
+    color: #ffffff;
+    font-family: "muli";
+    margin-top: 10px;
+    font-weight: 800;
+    font-size: 29px;
+  }
+  
+  h4 {
+    display: inline-block;
+    color: #ffffff;
+    font-family: "muli";
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  h4.dis {
+    display: inline-block;
+    color: #ffffff;
+    font-family: "muli";
+    font-weight: 400;
+    font-size: 17px;
+    margin-left: 30px;
+    text-decoration: line-through #ea3201;
+  }
+  
+  h4.dis span {
+    text-decoration: line-through #ea3201;
+  }
+  
+  .discount {
+    display: inline-block;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  li {
+    display: inline-block;
+    margin-right: 25px;
+  }
+  
+  ul li {
+    color: #ffffff;
+    font-family: "muli";
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 11px;
+  }
+  
+  .bg {
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    padding: 2px;
+    margin-right: 20px;
+    transition: 0.3s all ease;
+    border-radius: 50%;
+  }
+  
+  .bg:hover {
+    background-color: #ff6d39;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  
+  .yellow {
+    content: "";
+    width: 13px;
+    height: 13px;
+    background-color: #fec60f;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0);
+    transition: 0.3s all ease;
+  }
+  
+  .black {
+    content: "";
+    width: 13px;
+    height: 13px;
+    background-color: #000000;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0);
+    transition: 0.3s all ease;
+  }
+  
+  .blue {
+    content: "";
+    width: 13px;
+    height: 13px;
+    background-color: #02a2ca;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0);
+    transition: 0.3s all ease;
+  }
+  
+  .yellow:hover,
+  .black:hover,
+  .blue:hover {
+    border: 2px solid #f76b39;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .foot {
+    color: #ffffff;
+    font-family: "muli";
+    margin-top: 20px;
+    margin-right: 50px;
+    font-weight: 500;
+    font-size: 11px;
+    float: left;
+    transition: 0.3s all ease;
+  }
+  
+  .foot i:nth-child(1) {
+    margin-left: 0;
+    margin-right: 15px;
+  }
+  
+  .foot:hover {
+    color: #f76b39;
+    cursor: pointer;
+  }
+  
+  /*shoe slider indicator*/
+  
+  .left i {
+    color: #ffd5c6;
+    margin-top: 260px;
+    transition: 0.3s all ease;
+  }
+  
+  .fa-long-arrow-left {
+    margin-left: -275px;
+  }
+  
+  .fa-long-arrow-right {
+    margin-left: 15px;
+  }
+  
+  .left i:hover {
+    cursor: pointer;
+    color: #2a2f40;
+  }
+  
+  /*main card*/
+  
+  .card {
+    display: flex;
+    align-items: center;
+    background: #252831 url(https://www.dropbox.com/s/fuadz3vmw2nsylm/bg.png?raw=1)
+      no-repeat;
+    height: 600px;
+    width: 800px;
+    margin: 0 auto;
+    box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.4);
+    margin-top: 2%;
+  }
+  
+  .left {
+    content: "";
+    height: 395px;
+    width: 330px;
+    display: flex;
+    align-items: center;
+    background-color: #ff6d39;
+    margin-left: 93px;
+    border-radius: 0% 50% 50% 0%;
+    position: absolute;
+    z-index: 5;
+  }
+  
+  .left img {
+    margin-left: -88px;
+    margin-top: 60px;
+  }
+  
+  .right {
+    content: "";
+    height: 395px;
+    width: 550px;
+    background-color: #2a2f40;
+    z-index: 3;
+    margin-left: 200px;
+  }
+  
+  .product-info {
+    position: absolute;
+    margin-left: 245px;
+    height: 394px;
+    width: 305px;
+    z-index: 10;
+  }
+  
   </style>
   

@@ -36,11 +36,9 @@
     </div>
 
       <!-- Modal for Editing User -->
-  <div v-if="showEditUserModal" class="modal">
-    <div class="modal-content">
-      <span class="close" @click="closeEditUserModal">&times;</span>
-      <h2>Edit User</h2>
-      <form @submit.prevent="saveEditedUser" class="user-form">
+      <div v-if="showEditUserForm" class="form">
+        <h2>Edit User</h2>
+        <form @submit.prevent="saveEditedUser" class="user-form">
         <div class="form-group">
           <label for="editFullName">Full Name:</label>
           <input type="text" id="editFullName" v-model="editedUser.userName" placeholder="Enter full name">
@@ -91,7 +89,7 @@
             <td>{{ user.userRole }}</td>
             <td>{{ user.userUsername}}</td>
             <td>
-              <button @click="editUser(user)">Edit</button>
+              <button @click="editUserForm(user)">Edit</button>
               <button @click="del(user.userId)">Delete</button>
             </td>
           </tr>
@@ -157,7 +155,6 @@
         </tbody>
       </table>
       <button @click="showAddProductForm = true">Add Product</button>
-    </div>
   </body>
 </template>
 
@@ -170,7 +167,7 @@ export default {
     return {
       showAddUserForm: false,
       showAddProductForm: false,
-      showEditUserModal: false,
+      showEditUserForm: false,
       newUser: {
       fullName: '',
       age: '',
@@ -186,14 +183,8 @@ export default {
         price: '',
         image: ''
       },
-      editedUser: {
-        fullName: '',
-        age: '',
-        email: '',
-        role: '',
-        username: '',
-        password: ''
-      },
+      userToEdit: null,
+      editedUser: {}
     };
   },
   mounted() {
@@ -249,28 +240,18 @@ export default {
         console.error('Error adding product:', error);
       }
     },
-    editUser(user) {
-      this.editedUser = { ...user };
-      this.showEditUserModal = true;
+    async editUserForm(user) {
+      this.userToEdit = user;
+      this.editedUser = { ...user }; // Make a copy of user for editing
+      this.showEditUserForm = true;
     },
-    closeEditUserModal() {
-      this.editedUser = {
-        fullName: '',
-        age: '',
-        email: '',
-        role: '',
-        username: '',
-        password: ''
-      };
-      this.showEditUserModal = false;
-    },
-    async saveEditedUser(userId) {
+    async saveEditedUser() {
       try {
-        const { fullName, age, email, role,  password, username } = this.editedUser;
-        await axios.patch(`https://capstone-backend-owr8.onrender.com/users/${this.editedUser.userId}`, { userName: fullName, userAge: age, userEmail: email, userRole: role, userPassword: password, userUsername: username });
-        alert('You hve edited successfully')
-        this.closeEditUserModal();
-        this.fetchUsers(userId);
+        const { id } = this.userToEdit;
+        await axios.patch(`https://capstone-backend-owr8.onrender.com/users/${id}`, this.editedUser);
+        alert('User edited successfully');
+        this.showEditUserForm = false;
+        this.fetchUsers();
       } catch (error) {
         console.error('Error saving edited user:', error);
       }

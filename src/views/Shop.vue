@@ -1,313 +1,218 @@
 <template>
-  <body>
+  <div class="grid-container">
+    <div v-for="product in $store.state.products" :key="index" class="card">
+      <div class="imgBx">
+        <img :src="product.productUrl" :alt="product.title">
+      </div>
 
-    <div class="container overflow-scroll">
-	  <h3>Popular Products</h3>
-	  <div id="carousel">
-			<figure><img src="https://iili.io/JVf9w2S.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHgNn.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfJD1R.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHI87.png" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHH3N.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVf20F4.png" alt=""></figure>
-			<figure><img src="https://iili.io/JVf9w2S.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHgNn.jpg" alt=""></figure>
-      		<figure><img src="https://iili.io/JVfJD1R.jpg" alt=""></figure>
-		</div>
-	</div>
-  <div>
-        <!-- Buttons for sorting -->
-        <button class="sort-button" @click="toggleSort('price')">Sort by Price {{ sortBy === 'price' ? (sortOrder === 'asc' ? '▼' : '▲') : '' }}</button>
-        <button class="sort-button" @click="toggleSort('name')">Sort by Name {{ sortBy === 'name' ? (sortOrder === 'asc' ? '▼' : '▲') : '' }}</button>
-        <button class="sort-button" @click="toggleSort('category')">Sort by Category {{ sortBy === 'category' ? (sortOrder === 'asc' ? '▼' : '▲') : '' }}</button>
-      </div>
-      <!-- Search input -->
-      <input type="text" v-model="searchQuery" placeholder="Search Products" class="search-input">
-      <div v-if="products">
+      <div class="contentBx">
+        <h2>{{ product.productName }}</h2>
 
-      
-      <div class="grid-container">
-        <div v-for="(product, index) in filteredProducts" :key="index" class="card">
-          <div class="card-img">
-        <div class="img">
-          <img :src="product.productUrl" alt="">
+        <div class="size">
+          <span>R {{ product.Price }}</span>
         </div>
-      </div>
-      <div class="card-details">
-        <div class="card-title">{{ product.productName }}</div>
-        <div class="card-subtitle">{{ product.Category }}</div>
-        <hr class="card-divider">
-        <div class="card-footer">
-          <div class="card-price">R {{ product.Price }}</div>
-          <button class="card-btn">Add to Cart</button>
+
+        <div class="color">
+          <span>{{ product.Category }}</span>
         </div>
+
+        <a :href="product.buyNowLink">Buy Now</a>
       </div>
-      </div>
+    </div>
   </div>
-</div>
-<div v-else>
-    <Spinner/>
-  </div>
-  </body>
 </template>
 
-<script>
-import Spinner from '../components/Spinner.vue';
 
+<script>
 export default {
-components: {
-    Spinner
-},
-data() {
-    return {
-      searchQuery: '',
-      sortBy: '',
-      sortOrder: 'asc',
-    };
+  computed: {
+    products() {
+      return this.$store.state.products;
+    },
+  },
+  methods:{
+    async fetchProducts() {
+      this.$store.dispatch('fetchProducts')
+        .then(products => {
+          this.products = products;
+        });
+    },
   },
   mounted() {
-    this.$store.dispatch("fetchProducts");
+    this.fetchProducts();
   },
-  methods: {
-    toggleSort(criteria) {
-      // Toggle sorting order if same criteria is clicked
-      if (this.sortBy === criteria) {
-        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-      } else {
-        this.sortBy = criteria;
-        this.sortOrder = 'asc'; // Reset sorting order when different criteria is clicked
-      }
-      this.sortProducts();
-    },
-    sortProducts() {
-      // Sort products based on selected criteria and sorting order
-      if (this.sortBy === 'price') {
-        this.products.sort((a, b) => (this.sortOrder === 'asc' ? a.Price - b.Price : b.Price - a.Price));
-      } else if (this.sortBy === 'name') {
-        this.products.sort((a, b) => (this.sortOrder === 'asc' ? a.productName.localeCompare(b.productName) : b.productName.localeCompare(a.productName)));
-      } else if (this.sortBy === 'category') {
-        this.products.sort((a, b) => (this.sortOrder === 'asc' ? a.Category.localeCompare(b.Category) : b.Category.localeCompare(a.Category)));
-      }
-    }
-  },
-  computed: {
-    filteredProducts() {
-      // Filter products based on search query
-      return this.products.filter(product =>
-        product.productName.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    },
-    products(){
-      return this.$store.state.products;
-    }
-  }
 }
 </script>
 
 
+
 <style scoped>
-body{
-  height: 200vh;
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800, 800i, 900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
-
-
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-left: 150px;
-  margin-top: 130px;
-}
-
-
-.card {
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  height: 370px;
-  width: 300px;
-  position: relative;
-  bottom: 50px;
-}
-
-.card-img img {
-  width: auto;
-  height: 200px;
-  filter: grayscale(0);
-}
-
-.card-details {
-  padding: 20px;
-  flex-grow: 1; /* Allow card details to grow to fill remaining space */
-}
-
-.card-footer {
-  display: flex;
-  justify-content: flex-end; /* Align button to the right */
-  align-items: center;
-  padding: 0 20px 20px; /* Add padding to the bottom */
-}
-
-.card-title {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  max-height: 12px;
-}
-
-.card-subtitle {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 10px;
-  display: inline-flex;
-  max-height: 12px;
-  padding: 10px 10px;
-
-}
-
-.card-divider {
-  border: 1px solid #ddd;
-  margin: 10px 0;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  bottom: 1px;
-}
-
-.card-price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.card-btn {
-  background-color: lightblue;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 15px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.card-btn:hover {
-  background-color: black;
-  color: white;
-  transition: color 0.6s ease;
-}
-
-.container{
-	margin: 4% auto;
-	width: 210px;
-	height: 300px;
-	position: relative;
-	perspective: 1000px;
-  top: 50px;
-}
-
-.container h3{
-    font-size: 35px;
     position: relative;
-    text-wrap: nowrap;
+    display: grid; /* Change to grid layout */
+    grid-template-columns: repeat(4, auto); /* 4 columns */
+    gap: 5px;  /* Gap between grid items */
+    width: 75%;
+    top: 20px;
+    left: 150px;
+}
+
+
+.grid-container .card {
+    position: relative;
+    width: 250px;
+    height: 300px;
+    background: #232323;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+.grid-container .card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1BBFE9;
+    clip-path: circle(150px at 80% 20%);
+    transition: 0.5s ease-in-out;
+}
+
+.grid-container .card:hover:before {
+    clip-path: circle(300px at 80% -20%);
+}
+
+.grid-container .card:after {
+    position: absolute;
+    top: 30%;
+    left: -20%;
+    font-size: 12em;
+    font-weight: 800;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.04);
+
+}
+
+.grid-container .card .imgBx {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+}
+
+.grid-container .card:hover .imgBx {
+    top: 0%;
+    transform: translateY(-10%);
+    filter: blur(2px);
+}
+
+.grid-container .card .imgBx img {
+    position: relative;
+    bottom: 200px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.grid-container .card .contentBx {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
     text-align: center;
-	right: 80px;
-	bottom: 50px;
-	color: white;
-	text-shadow: 5px 5px 2px black;
+    transition: 1s;
+    z-index: 90;
+    font-size: 10px;
+    color: black;
 }
 
-#carousel{
-	width: 100%;
-	height: 40%;
-  margin-top: 70px;
-	position: relative;
-	transform-style: preserve-3d;
-	animation: rotation 100s infinite linear;
-}
-#carousel:hover{
-	animation-play-state: paused;
-}
-#carousel figure{
-	display: block;
-	position: absolute;
-	width: 200px;
-	height: 130px;
-	right: 30px;
-	bottom: 20px;
-	background-color: white;
-	border: solid 3px black;
-}
-#carousel figure:nth-child(1) {transform: rotateY(0deg) translateZ(288px);}
-#carousel figure:nth-child(2) { transform: rotateY(40deg) translateZ(288px);}
-#carousel figure:nth-child(3) { transform: rotateY(80deg) translateZ(288px);}
-#carousel figure:nth-child(4) { transform: rotateY(120deg) translateZ(288px);}
-#carousel figure:nth-child(5) { transform: rotateY(160deg) translateZ(288px);}
-#carousel figure:nth-child(6) { transform: rotateY(200deg) translateZ(288px);}
-#carousel figure:nth-child(7) { transform: rotateY(240deg) translateZ(288px);}
-#carousel figure:nth-child(8) { transform: rotateY(280deg) translateZ(288px);}
-#carousel figure:nth-child(9) { transform: rotateY(320deg) translateZ(288px);}
-
-
-img{
-	width: 100px;
-	height: 80px;
-	-webkit-filter: grayscale(1);
-	cursor: pointer;
-	transition: all .5s ease;
-	position: relative;
-	top: 20px;
-}
-img:hover{
-	-webkit-filter: grayscale(0);
-  	transform: scale(1.1);
+.grid-container .card:hover .contentBx {
+    height: 210px;
 }
 
-@keyframes rotation{
-	from{
-		transform: rotateY(0deg);
-	}
-	to{
-		transform: rotateY(360deg);
-	}
+.grid-container .card .contentBx h2 {
+    position: relative;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #fff;
 }
 
-.sort-button {
-  background-color: white;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  border: 2px solid black;
-  padding: 8px 15px;
-  font-size: 14px;
-  cursor: pointer;
-  margin-right: 10px; /* Add margin between buttons */
+.grid-container .card .contentBx .size,
+.grid-container .card .contentBx .color {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    transition: .5s;
+    opacity: 0;
+    visibility: hidden;
 }
 
-.sort-button:hover {
-  background-color: black;
-  color: white;
-  transition: color 0.9s ease;
+.grid-container .card:hover .contentBx .size {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: .5s;
 }
 
-.search-input {
-  width: 20%;
-  padding: 10px;
-  margin-top: 10px;
-  border: 2px solid black;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 16px;
+.grid-container .card:hover .contentBx a {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: .7s;
+} 
+
+.grid-container .card .contentBx .size h3,
+.grid-container .card .contentBx .color h3 {
+    color: black;
+    font-weight: 300;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 10px;
 }
 
-.search-input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+.grid-container .card .contentBx .size span {
+    width: 80px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    font-size: 14px;
+    display: inline-block;
+    color: #111;
+    background: #fff;
+    margin: 0 5px;
+    transition: .5s;
+    color: #111;
+    border-radius: 4px;
+    cursor: pointer;
 }
+
+.grid-container .card .contentBx a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 4px;
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #111;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: .5s;
+}
+
+.grid-container .card:hover .contentBx a {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: .7s;
+} 
 </style>

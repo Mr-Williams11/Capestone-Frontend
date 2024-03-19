@@ -1,10 +1,10 @@
 <template>
   <div class="img">
-    <img src="https://iili.io/JVRiZ3G.png" alt="">
+    <img src="https://iili.io/JXVsyjR.png" alt="">
   </div>
   <div class="about"> 
     <h2>About Us</h2>
-    <p>"At FoamFusion, we're dedicated to revolutionizing the way your vehicle gets pampered. Our passion for pristine rides drives us to blend cutting-edge technology with eco-friendly practices, ensuring each wash leaves your car sparkling clean and the environment smiling. With a fusion of foam, finesse, and a commitment to excellence, we strive to exceed your expectations every time you visit. Experience the ultimate in car care with FoamFusion - where innovation meets immaculate shine."</p>
+    <p>"At The Footwear Gallery, we believe that every step should be a statement. Our curated collection showcases a fusion of style, comfort, and quality craftsmanship, designed to inspire confidence in every stride. With a passion for footwear and an eye for the latest trends, we offer a diverse range of shoes for every occasion, from casual outings to special events. Whether you're seeking timeless classics or bold fashion statements, The Footwear Gallery is your destination for footwear that speaks volumes about your personality and individuality. Step into our gallery and let your feet do the talking."</p>
   </div>
 </template>
 
@@ -19,8 +19,8 @@
   position: relative;
   top: 200px;
   left: 500px;
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 300px;
+  max-height: 350px;
   animation: rotate 25s infinite;
 }
 
@@ -38,6 +38,7 @@
   box-shadow: none;
   left: 100px;
   position: relative;
+  bottom: 70px;
 }
 
 .about h2{

@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="home">
-      <h1>Welcome to FoamFusion</h1>
+      <h1>Welcome to <br>The Footwear Gallery</h1>
     </div>
     <ul class="bubble">
     <li></li>

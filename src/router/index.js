@@ -8,10 +8,11 @@ import Contact from '../views/Contact.vue';
 import SigninVue from '../views/Signin.vue';
 import AdminVue from '@/views/Admin.vue';
 import Profile from '../views/Profile.vue';
+import ProductDetails from '@/components/Product1.vue';
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: HomeView,
   },
@@ -26,7 +27,13 @@ const routes = [
     component: Shop,
   },
   {
-    path: '/Signin',
+    path: '/Shop/:productId',
+    name: 'product-details',
+    component: ProductDetails,
+    props: true
+  },
+  {
+    path: '/',
     name: 'Signin',
     component: SigninVue,
   },
