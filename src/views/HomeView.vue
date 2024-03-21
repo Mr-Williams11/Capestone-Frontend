@@ -37,7 +37,7 @@ export default {
   width: 100%;
   font-size: 3rem;
   color: transparent;
-  background-image: linear-gradient(to right, black 86%, lightblue);
+  background-image: linear-gradient(to right, white 86%, red);
   background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-position: -1910px 0;
