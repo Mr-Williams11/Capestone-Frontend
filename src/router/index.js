@@ -8,7 +8,8 @@ import Contact from '../views/Contact.vue';
 import SigninVue from '../views/Signin.vue';
 import AdminVue from '@/views/Admin.vue';
 import Profile from '../views/Profile.vue';
-import ProductDetails from '@/components/Product1.vue';
+import SingleVue from '@/views/SingleVue.vue';
+import Cart from '@/views/Cart.vue';
 
 const routes = [
   {
@@ -28,8 +29,8 @@ const routes = [
   },
   {
     path: '/Shop/:productId',
-    name: 'product-details',
-    component: ProductDetails,
+    name: 'singleview',
+    component: SingleVue,
     props: true
   },
   {
@@ -51,6 +52,11 @@ const routes = [
     path: '/contact',
     name: 'contact',
     component: Contact,
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart,
   }
 ];
 

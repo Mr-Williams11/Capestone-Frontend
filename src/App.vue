@@ -25,10 +25,11 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background: url(https://iili.io/JXmD5Lx.jpg);
+  background: url(https://iili.io/JhqJlTX.jpg);
   background-repeat: repeat;
   background-position: top;
   background-size: cover;
+  background-position-y: -150px;
 }
 
 #app {

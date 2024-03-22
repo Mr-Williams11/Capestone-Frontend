@@ -1,10 +1,8 @@
 <template>
   <div class="about"> 
-    <div class="img">
-      <img src="https://iili.io/JXVsyjR.png" alt="">
-    </div>
     <h2>About Us</h2>
     <p>"At The Footwear Gallery, we believe that every step should be a statement. Our curated collection showcases a fusion of style, comfort, and quality craftsmanship, designed to inspire confidence in every stride. With a passion for footwear and an eye for the latest trends, we offer a diverse range of shoes for every occasion, from casual outings to special events. Whether you're seeking timeless classics or bold fashion statements, The Footwear Gallery is your destination for footwear that speaks volumes about your personality and individuality. Step into our gallery and let your feet do the talking."</p>
+      <img src="https://iili.io/JhqdEAP.png" alt="">
   </div>
 </template>
 
@@ -15,10 +13,10 @@
   margin: 0;
 }
 
-.img img{
+.about img{
   position: relative;
-  top: 350px;
-  left: 300px;
+  left: 550px;
+  bottom: 350px;
   max-width: 300px;
   max-height: 350px;
   animation: rotate 25s infinite;
@@ -34,8 +32,9 @@
 
 .about{
   width: 75%;
-  background-color: transparent;
+  height: 300px;
   box-shadow: none;
+  top: 200px;
   left: 100px;
   position: relative;
   bottom: 70px;
@@ -70,7 +69,7 @@
   text-align: center;
   left: 10px;
   bottom: 50px;
-  background-image: linear-gradient( white 35%, orange);
+  background-image: linear-gradient( white, white);
   -webkit-background-clip: text; 
   background-clip: text;
   color: transparent;

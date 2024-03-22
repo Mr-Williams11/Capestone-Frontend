@@ -7,6 +7,7 @@ export default createStore({
     products: [],
     users: [],
     logged: false,
+    cart: [], 
   },
   mutations: {
     setProducts(state, products) {
@@ -23,6 +24,16 @@ export default createStore({
     },
     addProduct(state, product) {
       state.products.push(product);
+    },
+    setCart(state, cartItems) {
+      state.cart = cartItems;
+    },
+    addToCart(state, product) {
+      state.cart.push(product);
+    },
+
+    removeFromCart(state, productId) {
+      state.cart = state.cart.filter(item => item.id !== productId);
     }
 
   },
@@ -140,6 +151,35 @@ export default createStore({
           console.error('Error during logout:', error);
         }
         window.location.reload
+    },
+    async fetchCart({ commit }, userId) {
+      try {
+        const res = await axios.get(`https://capstone-backend-owr8.onrender.com/cart/${userId}`);
+        const cartItems = res.data;
+        commit('setCart', cartItems);
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      }
+    },
+
+    async addToCart({ commit }, productData) {
+      try {
+        await axios.post('https://capstone-backend-owr8.onrender.com/cart', productData);
+        commit('addToCart', productData);
+        alert('Item added to cart');
+      } catch (error) {
+        console.error('Error adding item to cart:', error);
+      }
+    },
+
+    async removeFromCart({ commit }, { userId, cartId }) {
+      try {
+        await axios.delete(`https://capstone-backend-owr8.onrender.com/cart/${cartId}`);
+        commit('removeFromCart', cartId);
+        alert('Item removed from cart');
+      } catch (error) {
+        console.error('Error removing item from cart:', error);
+      }
     }
   },
 });

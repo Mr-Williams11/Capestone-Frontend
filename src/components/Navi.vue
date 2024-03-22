@@ -23,7 +23,7 @@
         </li>
         <li class="has-subnav">
           <router-link to="/Admin" v-if="$cookies.get('userRole') === 'Admin'">
-            <i class="fa fa-user fa-2x"></i>
+            <i class="fa fa-cog fa-2x"></i> 
             <span class="nav-text">Admin</span>
           </router-link>
         </li>
@@ -41,8 +41,14 @@
         </li>
         <li>
           <router-link to="/Profile">
-            <i class="fa fa-sign-out fa-2x"></i>
+            <i class="fa fa-user fa-2x"></i>
             <span class="nav-text">Profile</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/cart" v-if="$cookies.get('jwt')">
+            <i class="fa fa-shopping-cart fa-2x"></i>
+            <span class="nav-text">Cart</span>
           </router-link>
         </li>
       </ul>

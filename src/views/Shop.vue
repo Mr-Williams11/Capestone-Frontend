@@ -4,15 +4,15 @@
     <div class="container overflow-scroll">
 	  <h3>Popular Products</h3>
 	  <div id="carousel">
-			<figure><img src="https://iili.io/JVf9w2S.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHgNn.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfJD1R.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHI87.png" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHH3N.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVf20F4.png" alt=""></figure>
-			<figure><img src="https://iili.io/JVf9w2S.jpg" alt=""></figure>
-			<figure><img src="https://iili.io/JVfHgNn.jpg" alt=""></figure>
-      		<figure><img src="https://iili.io/JVfJD1R.jpg" alt=""></figure>
+			<figure><img src="https://iili.io/Jhqn3tp.png" alt=""></figure>
+			<figure><img src="https://iili.io/JhqBZ4n.png" alt=""></figure>
+			<figure><img src="https://iili.io/JhqnMDQ.png" alt=""></figure>
+			<figure><img src="https://iili.io/Jhqofmx.png" alt=""></figure>
+			<figure><img src="https://iili.io/JhqxBvs.png" alt=""></figure>
+			<figure><img src="https://iili.io/Jhqxayb.png" alt=""></figure>
+			<figure><img src="https://iili.io/Jhqn3tp.png" alt=""></figure>
+			<figure><img src="https://iili.io/JhqBZ4n.png" alt=""></figure>
+      		<figure><img src="https://iili.io/JhqnMDQ.png" alt=""></figure>
 		</div>
 	</div>
   <div>
@@ -39,8 +39,8 @@
         <hr class="card-divider">
         <div class="card-footer">
           <div class="card-price">R {{ product.Price }}</div>
-          <button class="card-btn">Add to Cart</button>
-          <button class="view-more-btn" @click="viewMore(product.productId)">View More</button>
+          <button class="card-btn" @click="addToCart(product)">Add to Cart</button>
+          <button class="view-more-btn" @click="navigateToSingleView(product.productId)">View More</button>
         </div>
       </div>
       </div>
@@ -90,10 +90,18 @@ data() {
         this.products.sort((a, b) => (this.sortOrder === 'asc' ? a.Category.localeCompare(b.Category) : b.Category.localeCompare(a.Category)));
       }
     },
-    
-    viewMore(product) {
-        console.log("View More:", product);
-      }
+    addToCart(product) {
+    this.$store.dispatch('addToCart', product)
+      .then(() => {
+        alert('Item added to cart');
+      })
+      .catch(error => {
+        console.error('Error adding item to cart:', error);
+      });
+  },
+    navigateToSingleView(productId) {
+      this.$router.push({ name: 'singleview', params: { productId: productId } });
+    }
   },
 
   computed: {
@@ -113,7 +121,7 @@ data() {
 
 <style scoped>
 body{
-  height: max-content;
+  height: 250vh;
   width: 100%;
 }
 

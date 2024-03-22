@@ -1,4 +1,6 @@
 <template>
+  <body>
+    
     <div>
       <h1>Admin Page</h1>
 
@@ -34,6 +36,36 @@
       </form>
     </div>
 
+          <!-- Products Section -->
+          <div v-if="showAddProductForm" class="form">
+      <h2>Add Product</h2>
+      <!-- Product Form -->
+      <form @submit.prevent="addProduct" class="product-form">
+        <div class="form-group">
+          <label for="productName">Name:</label>
+          <input type="text" id="productName" v-model="newProduct.name" placeholder="Enter product name">
+        </div>
+        <div class="form-group">
+          <label for="productDescription">Description:</label>
+          <input type="text" id="productDescription" v-model="newProduct.description" placeholder="Enter product description">
+        </div>
+        <div class="form-group">
+          <label for="productCategory">Category:</label>
+          <input type="text" id="productCategory" v-model="newProduct.category" placeholder="Enter product category">
+        </div>
+        <div class="form-group">
+          <label for="productPrice">Price:</label>
+          <input type="number" id="productPrice" v-model="newProduct.price" placeholder="Enter product price">
+        </div>
+        <div class="form-group">
+          <label for="productImage">Image URL:</label>
+          <input type="text" id="productImage" v-model="newProduct.image" placeholder="Enter product image URL">
+        </div>
+        <button type="submit">Add Product</button>
+      </form>
+    </div>
+
+
       <!-- Modal for Editing User -->
       <div v-if="showEditUserForm" class="form">
         <h2>Edit User</h2>
@@ -67,6 +99,8 @@
     </div>
   </div>
 
+  <button @click="showAddProductForm = true">Add Product</button><button @click="showAddUserForm = true">Add User</button>
+
   
       <h2>Users</h2>
       <table>
@@ -93,39 +127,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
-      <button @click="showAddUserForm = true">Add User</button> 
-
-
-
-      <!-- Products Section -->
-      <div v-if="showAddProductForm" class="form">
-      <h2>Add Product</h2>
-      <!-- Product Form -->
-      <form @submit.prevent="addProduct" class="product-form">
-        <div class="form-group">
-          <label for="productName">Name:</label>
-          <input type="text" id="productName" v-model="newProduct.name" placeholder="Enter product name">
-        </div>
-        <div class="form-group">
-          <label for="productDescription">Description:</label>
-          <input type="text" id="productDescription" v-model="newProduct.description" placeholder="Enter product description">
-        </div>
-        <div class="form-group">
-          <label for="productCategory">Category:</label>
-          <input type="text" id="productCategory" v-model="newProduct.category" placeholder="Enter product category">
-        </div>
-        <div class="form-group">
-          <label for="productPrice">Price:</label>
-          <input type="number" id="productPrice" v-model="newProduct.price" placeholder="Enter product price">
-        </div>
-        <div class="form-group">
-          <label for="productImage">Image URL:</label>
-          <input type="text" id="productImage" v-model="newProduct.image" placeholder="Enter product image URL">
-        </div>
-        <button type="submit">Add Product</button>
-      </form>
-    </div>
+      </table> 
 
       <h2>Products</h2>
       <table>
@@ -153,7 +155,7 @@
           </tr>
         </tbody>
       </table>
-      <button @click="showAddProductForm = true">Add Product</button>
+  </body>
 </template>
 
 <script>
@@ -246,7 +248,7 @@ export default {
     async saveEditedUser() {
       try {
         const { id } = this.userToEdit;
-        await axios.patch(`https://capstone-backend-owr8.onrender.com/users/${id}`, this.editedUser);
+        await axios.patch(`https://capstone-backend-owr8.onrender.com/users/${userId}`, this.editedUser);
         alert('User edited successfully');
         this.showEditUserForm = false;
         this.fetchUsers();
@@ -277,7 +279,7 @@ export default {
 
 <style scoped>
 body{
-  height: 250vh;
+  height: 200vh;
 }
 
 h1{

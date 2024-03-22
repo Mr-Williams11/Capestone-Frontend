@@ -1,5 +1,4 @@
 <template>
-  <body>
     <div class="home">
       <h1>Welcome to <br>The Footwear Gallery</h1>
     </div>
@@ -16,7 +15,6 @@
       <li></li>
       <li></li>	
   </ul>
-  </body>
 </template>
 
 <script>
@@ -33,7 +31,7 @@ export default {
 
 .home{
   position: fixed;
-  top: 15%;
+  top: 20%;
   width: 100%;
   font-size: 3rem;
   color: transparent;

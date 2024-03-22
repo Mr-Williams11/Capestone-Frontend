@@ -2,7 +2,23 @@
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-left">
-        <p>&copy; 2024 FoamFusion.<br> All rights reserved.</p>
+        <p>&copy; 2024 The Footwear Gallery. All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <div class="social-icons">
+          <a href="#" class="social-icon">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fa fa-instagram"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fa fa-linkedin"></i>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
@@ -26,123 +42,60 @@ export default {
 
 .footer-content {
   display: flex;
-  flex-direction: row;
-  position: relative;
-  font-size: 15px;
-  max-width: 100%;
-  margin-top: 5px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
 }
 
 .footer-left {
   flex: 1;
-  position: relative;
-  right: 150px;
 }
 
 .footer-right {
   flex: 1;
-  text-align: left;
+  text-align: right;
 }
 
-.card {
-  width: fit-content;
-  height: fit-content;
+.social-icons {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.055);
+  justify-items: end;
 }
 
-.socialContainer {
-  width: 52px;
-  height: 52px;
-  background-color: lightblue;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition-duration: .3s;
+.social-icon {
+  color: white;
+  margin-right: 10px;
+  font-size: 20px;
+  transition: color 0.3s ease;
 }
 
-.containerOne:hover {
-  background-color: #d62976;
-  transition-duration: .3s;
-}
-
-.containerTwo:hover {
-  background-color: #00acee;
-  transition-duration: .3s;
-}
-
-.containerThree:hover {
-  background-color: #0072b1;
-  transition-duration: .3s;
-}
-
-.containerFour:hover {
-  background-color: #128C7E;
-  transition-duration: .3s;
-}
-
-.socialContainer:active {
-  transform: scale(0.9);
-  transition-duration: .3s;
-}
-
-.socialSvg {
-  width: 17px;
-}
-
-.socialSvg path {
-  fill: black;
-}
-
-.socialContainer:hover .socialSvg {
-  animation: slide-in-top 0.3s both;
-}
-
-@keyframes slide-in-top {
-  0% {
-    transform: translateY(-50px);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.social-icon:hover {
+  color: #55acee; /* Change color on hover */
 }
 
 @media screen and (max-width: 720px) {
   .footer-content {
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    text-align: center;
   }
 
   .footer-left, .footer-right {
     width: 100%;
-    text-align: center;
     margin-bottom: 10px;
   }
 
-  .card {
-    width: 100%;
-  }
-
-  .socialContainer {
-    width: 40px;
-    height: 40px;
-  }
-
-  .footer-content {
-    font-size: 12px;
+  .social-icons {
+    margin-top: 10px;
   }
 }
 
 @media screen and (max-width: 300px) {
   .footer-content {
-    font-size: 10px;
+    font-size: 12px;
+  }
+
+  .social-icon {
+    font-size: 16px;
   }
 }
 </style>
