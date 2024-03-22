@@ -1,59 +1,61 @@
 <template>
-  <div class="area"></div>
-  <nav class="main-menu">
-    <ul>
-      <li>
-        <router-link to="/home">
-          <i class="fa fa-home fa-2x"></i>
-          <span class="nav-text">Home</span>
-        </router-link>
-      </li>
-      <li class="has-subnav">
-        <router-link to="/about">
-          <i class="fa fa-info-circle fa-2x"></i>
-          <span class="nav-text">About</span>
-        </router-link>
-      </li>
-      <li class="has-subnav">
-        <router-link to="/shop">
-          <i class="fa fa-shopping-cart fa-2x"></i>
-          <span class="nav-text">Shop</span>
-        </router-link>
-      </li>
-      <li class="has-subnav">
-        <router-link to="/Admin" v-if="$cookies.get('userRole') === 'Admin'">
-          <i class="fa fa-user fa-2x"></i>
-          <span class="nav-text">Admin</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/Contact">
-          <i class="fa fa-envelope fa-2x"></i>
-          <span class="nav-text">Contact</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/" v-if="!$cookies.get('jwt')">
-          <i class="fa fa-sign-in fa-2x"></i>
-          <span class="nav-text">Sign In</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/Profile">
-          <i class="fa fa-sign-out fa-2x"></i>
-          <span class="nav-text">Profile</span>
-        </router-link>
-      </li>
-    </ul>
-    <ul class="logout">
-      <li>
-        <a href="#" @click="logout">
-          <i class="fa fa-power-off fa-2x"></i>
-          <span class="nav-text">Logout</span>
-        </a>
-      </li>  
-    </ul>
-  </nav>
+  <div class="area">
+
+    <nav class="main-menu">
+      <ul>
+        <li>
+          <router-link to="/home">
+            <i class="fa fa-home fa-2x"></i>
+            <span class="nav-text">Home</span>
+          </router-link>
+        </li>
+        <li class="has-subnav">
+          <router-link to="/about">
+            <i class="fa fa-info-circle fa-2x"></i>
+            <span class="nav-text">About</span>
+          </router-link>
+        </li>
+        <li class="has-subnav">
+          <router-link to="/shop">
+            <i class="fa fa-shopping-cart fa-2x"></i>
+            <span class="nav-text">Shop</span>
+          </router-link>
+        </li>
+        <li class="has-subnav">
+          <router-link to="/Admin" v-if="$cookies.get('userRole') === 'Admin'">
+            <i class="fa fa-user fa-2x"></i>
+            <span class="nav-text">Admin</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/Contact">
+            <i class="fa fa-envelope fa-2x"></i>
+            <span class="nav-text">Contact</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/" v-if="!$cookies.get('jwt')">
+            <i class="fa fa-sign-in fa-2x"></i>
+            <span class="nav-text">Sign In</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/Profile">
+            <i class="fa fa-sign-out fa-2x"></i>
+            <span class="nav-text">Profile</span>
+          </router-link>
+        </li>
+      </ul>
+      <ul class="logout">
+        <li>
+          <a href="#" @click="logout">
+            <i class="fa fa-power-off fa-2x"></i>
+            <span class="nav-text">Logout</span>
+          </a>
+        </li>  
+      </ul>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -95,7 +97,7 @@ border-right:1px solid #e5e5e5;
 position: fixed;
 top:0;
 bottom:0;
-height:100%;
+height:auto;
 left:0;
 width:100px;
 overflow:hidden;

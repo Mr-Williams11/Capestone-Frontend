@@ -1,5 +1,4 @@
 <template>
-  <body>
     <div>
       <h1>Admin Page</h1>
 
@@ -155,7 +154,6 @@
         </tbody>
       </table>
       <button @click="showAddProductForm = true">Add Product</button>
-  </body>
 </template>
 
 <script>
@@ -285,6 +283,11 @@ body{
 h1{
   position: relative;
   top: 20px;
+  color: white
+}
+
+h2{
+  color: white;
 }
 
 /* Table Styles */
@@ -300,6 +303,10 @@ th, td {
   border: 1px solid #dddddd;
   padding: 8px;
   text-align: left;
+}
+
+td{
+  color: white;
 }
 
 th {
@@ -403,7 +410,7 @@ button:hover {
 
 @media screen and (max-width: 720px) {
   table {
-    width: 100%;
+    width: 80%;
     font-size: 14px;
   }
 

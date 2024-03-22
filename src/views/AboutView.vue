@@ -1,8 +1,8 @@
 <template>
-  <div class="img">
-    <img src="https://iili.io/JXVsyjR.png" alt="">
-  </div>
   <div class="about"> 
+    <div class="img">
+      <img src="https://iili.io/JXVsyjR.png" alt="">
+    </div>
     <h2>About Us</h2>
     <p>"At The Footwear Gallery, we believe that every step should be a statement. Our curated collection showcases a fusion of style, comfort, and quality craftsmanship, designed to inspire confidence in every stride. With a passion for footwear and an eye for the latest trends, we offer a diverse range of shoes for every occasion, from casual outings to special events. Whether you're seeking timeless classics or bold fashion statements, The Footwear Gallery is your destination for footwear that speaks volumes about your personality and individuality. Step into our gallery and let your feet do the talking."</p>
   </div>
@@ -17,8 +17,8 @@
 
 .img img{
   position: relative;
-  top: 200px;
-  left: 500px;
+  top: 350px;
+  left: 300px;
   max-width: 300px;
   max-height: 350px;
   animation: rotate 25s infinite;
@@ -48,7 +48,7 @@
   text-align: center;
   bottom: 50px;
   color: transparent;
-  background-image: linear-gradient(black, black);
+  background-image: linear-gradient(white, white);
   background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-position: -910px 0;
@@ -70,7 +70,7 @@
   text-align: center;
   left: 10px;
   bottom: 50px;
-  background-image: linear-gradient( black 35%, blue);
+  background-image: linear-gradient( white 35%, orange);
   -webkit-background-clip: text; 
   background-clip: text;
   color: transparent;
@@ -80,9 +80,9 @@
   .about { 
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 50%;
     left: 150px;
-    top: 5px;
+    bottom:250px;
     position: relative;
   }
   .about h2{
@@ -106,7 +106,6 @@
     position: relative;
     max-width: 300px;
     max-height: 300px;
-    right: 200px ;
   }
 }
 

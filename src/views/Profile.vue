@@ -57,6 +57,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative;
 }
 
 .profile-card {
@@ -101,6 +102,40 @@ export default {
 
 .profile-info div {
   margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 720px) {
+  .profile-container {
+    padding: 20px;
+    left: 5%;
+  }
+
+  .profile-card {
+    width: 80%;
+    max-width: 400px;
+  }
+
+  .profile-title {
+    font-size: 20px;
+  }
+
+  .edit-button button {
+    padding: 8px 16px; 
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .profile-title {
+    font-size: 18px; /* Further adjust title font size for very small screens */
+  }
+
+  .edit-button button {
+    padding: 6px 12px; /* Further adjust button padding for very small screens */
+  }
+
+  .profile-info div {
+    font-size: 14px; /* Adjust font size for profile info on very small screens */
+  }
 }
 
 </style>

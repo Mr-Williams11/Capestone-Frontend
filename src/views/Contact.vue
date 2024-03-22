@@ -67,7 +67,7 @@ export default {
 .contact-form {
   max-width: 400px;
   margin: 10px auto;
-  color: black;
+  color: white;
   position: relative;
   top: 50px;
 }
@@ -114,6 +114,7 @@ button:hover {
   top: 70px;
   flex: 1;
   max-width: 400px;
+  color: white;
 }
 
 .contact-info ul {
@@ -135,7 +136,7 @@ button:hover {
 }
 
 .social-media ul li a {
-  color: black;
+  color: white;
   font-size: 18px;
   text-decoration: none;
   display: flex;
@@ -149,4 +150,44 @@ button:hover {
 .social-media ul li a i {
   margin-right: 5px;
 }
+
+@media only screen and (max-width: 720px) {
+  .contact-container {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+    align-items: center;
+    top: 1px;
+    height: 200px;
+  }
+
+  .contact-form{
+    width: 30%; /* Adjust maximum width for better responsiveness */
+    margin: 20px auto; /* Add margin for better spacing */
+  }
+
+  .contact-form h2 {
+    font-size: 30px; /* Adjust heading font size for smaller screens */
+    margin-bottom: 20px; /* Add margin below heading for better spacing */
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%; /* Make input fields take full width on smaller screens */
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .contact-form h2 {
+    font-size: 25px; /* Further adjust heading font size for very small screens */
+  }
+
+  button {
+    padding: 8px 16px; /* Adjust button padding for smaller screens */
+  }
+
+  .contact-info ul li {
+    font-size: 14px; /* Adjust font size for contact info on very small screens */
+  }
+}
+
 </style>

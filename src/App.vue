@@ -22,13 +22,13 @@ export default {
 
 body {
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   margin: 0;
   padding: 0;
   background: url(https://iili.io/JXmD5Lx.jpg);
-  background-repeat: no-repeat;
+  background-repeat: repeat;
+  background-position: top;
   background-size: cover;
-  background-position-y: -150px;
 }
 
 #app {
@@ -55,10 +55,11 @@ footer {
   font-size: 20px;
 }
 
-/* Media query for screens with a maximum width of 720px */
 @media screen and (max-width: 720px) {
   body {
-    width: 95%; /* Adjust body width for smaller screens */
+    width: 95%;
+    background-size: cover;
+    height: 100vh;
   }
   .footer-logo {
     left: 10px; /* Adjust the left position of the logo */
